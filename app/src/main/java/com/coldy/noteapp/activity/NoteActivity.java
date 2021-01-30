@@ -14,6 +14,8 @@ public class NoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -29,6 +31,10 @@ public class NoteActivity extends AppCompatActivity {
 
         if (menuId == R.id.menuitem_salvar) {
             Toast.makeText(this, "Salvar clicado", Toast.LENGTH_SHORT).show();
+        }
+        if (menuId == android.R.id.home) {
+            this.finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

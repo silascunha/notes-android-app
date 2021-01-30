@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.coldy.noteapp.R;
 import com.coldy.noteapp.adapter.MyAdapter;
 import com.coldy.noteapp.model.Note;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         MyAdapter adapter = new MyAdapter(lista);
-        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(adapter);
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         note = new Note();
         note.setId(1L);
         note.setTitulo("Titulo 2");
-        note.setConteudo("Conteudo 2 teste teste teste teste fasf df asdfsdfasdf sdfa sdfsadfsafasdfasfd ");
+        note.setConteudo("Conteudo 2 teste teste teste teste fasf df asdfsdfasdf sdfa sdfsadfsafasdfasfd dasdasdsad asdasdasdas ddasdasdasdasd asdasdasdasdasdasfasfasd");
         lista.add(note);
         note = new Note();
         note.setId(1L);

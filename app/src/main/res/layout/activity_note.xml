@@ -16,18 +16,18 @@
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
+                    android:gravity="start|top"
                     android:ems="10"
-                    android:id="@+id/editTextTextPersonName2"
-                    style="@style/Base.Widget.MaterialComponents.TextInputEditText" android:textSize="20sp"
-                    android:hint="Título" android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                    android:id="@+id/editTitulo" android:hint="Título" android:textSize="22sp"
+                    style="@style/Base.Widget.MaterialComponents.TextInputEditText" android:maxLength="200"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textMultiLine"
                     android:gravity="start|top"
                     android:ems="10"
-                    android:id="@+id/editTextTextMultiLine2"
+                    android:id="@+id/editConteudo"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText" android:singleLine="false"
                     android:hint="Nota" android:textSize="18sp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
