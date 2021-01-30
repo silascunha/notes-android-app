@@ -6,7 +6,7 @@ public class Note {
 
     private Long id;
     private String titulo;
-    private String nota;
+    private String conteudo;
 
     public Note() {
     }
@@ -27,12 +27,12 @@ public class Note {
         this.titulo = titulo;
     }
 
-    public String getNota() {
-        return nota;
+    public String getConteudo() {
+        return conteudo;
     }
 
-    public void setNota(String nota) {
-        this.nota = nota;
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Note {
         return "Note{" +
                 "id=" + id +
                 ", titulo='" + titulo + '\'' +
-                ", nota='" + nota + '\'' +
+                ", nota='" + conteudo + '\'' +
                 '}';
     }
 }

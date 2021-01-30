@@ -2,7 +2,12 @@ package com.coldy.noteapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.coldy.noteapp.R;
+import com.coldy.noteapp.adapter.MyAdapter;
+import com.coldy.noteapp.model.Note;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +17,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private List<Note> lista = new ArrayList<>();
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +40,38 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        iniciaLista();
+
+        recyclerView = findViewById(R.id.recyclerView);
+        MyAdapter adapter = new MyAdapter(lista);
+        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void iniciaLista() {
+        Note note = new Note();
+        note.setId(1L);
+        note.setTitulo("Titulo 1");
+        note.setConteudo("Conteudo 1 teste");
+        lista.add(note);
+        note = new Note();
+        note.setId(1L);
+        note.setTitulo("Titulo 2");
+        note.setConteudo("Conteudo 2 teste teste teste teste fasf df asdfsdfasdf sdfa sdfsadfsafasdfasfd ");
+        lista.add(note);
+        note = new Note();
+        note.setId(1L);
+        note.setTitulo("Titulo 3");
+        note.setConteudo("Conteudo 3 teste");
+        lista.add(note);
+        note = new Note();
+        note.setId(1L);
+        note.setTitulo("Titulo 4");
+        note.setConteudo("Conteudo 4 teste");
+        lista.add(note);
     }
 
     @Override
