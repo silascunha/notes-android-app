@@ -1,13 +1,11 @@
 package com.coldy.noteapp.activity;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.app.DialogCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.coldy.noteapp.R;
@@ -28,7 +26,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardClickListener {
 
-    private List<Note> listaNotas = new ArrayList<>();
+    private List<Note> listaNotas;
     private RecyclerView recyclerView;
     private INoteDAO noteDAO;
 
@@ -50,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), NoteActivity.class);
-                //intent.putExtra("isEditing", false);
                 startActivity(intent);
             }
         });
+
 
     }
 
@@ -139,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
                 if (noteDAO.delete(note)) {
                     Toast.makeText(getApplicationContext(), "Nota excluída", Toast.LENGTH_SHORT)
                             .show();
-                    atualizarLista(noteDAO.findAll());
+                    removeOfList(note);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Erro ao excluir", Toast.LENGTH_SHORT)
@@ -152,5 +150,17 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
 
         dialog.create().show();
 
+    }
+
+    private void removeOfList(Note note) {
+        int position = listaNotas.indexOf(note);
+        listaNotas.remove(note);
+        recyclerView.getAdapter().notifyItemRemoved(position);
+    }
+
+    private void addOnList(Note note) {
+        listaNotas.add(note);
+        int position = listaNotas.indexOf(note);
+        recyclerView.getAdapter().notifyItemInserted(position);
     }
 }

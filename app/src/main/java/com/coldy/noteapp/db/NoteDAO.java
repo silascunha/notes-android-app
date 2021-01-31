@@ -33,13 +33,15 @@ public class NoteDAO implements INoteDAO {
         cv.put("titulo", note.getTitulo());
         cv.put("conteudo", note.getConteudo());
 
-        try {
-            dbWrite.insert(DbHelper.TABLE_NAME, null, cv);
-            Log.i("INFO", "Nota salva com sucesso");
-        } catch (SQLiteException e) {
-            Log.e("INFO", "Erro ao salvar a nota: " + e.getMessage());
+        Long id = dbWrite.insert(DbHelper.TABLE_NAME, null, cv);
+
+        if (id == -1) {
+            Log.e("INFO", "Erro ao salvar a nota");
             return false;
         }
+
+        note.setId(id);
+        Log.i("INFO", "Nota salva com sucesso");
 
         return true;
     }
