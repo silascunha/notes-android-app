@@ -76,6 +76,29 @@ public class NoteDAO implements INoteDAO {
     }
 
     @Override
+    public List<Note> filter(String regex) {
+        List<Note> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + DbHelper.TABLE_NAME +
+                " WHERE titulo LIKE ? OR conteudo LIKE ?";
+
+        regex = "%" + regex + "%";
+
+        Cursor cursor = dbRead.rawQuery(sql, new String[]{regex, regex});
+
+        while (cursor.moveToNext()) {
+            Note note = new Note();
+            note.setId(cursor.getLong(cursor.getColumnIndex("id")));
+            note.setTitulo(cursor.getString(cursor.getColumnIndex("titulo")));
+            note.setConteudo(cursor.getString(cursor.getColumnIndex("conteudo")));
+
+            lista.add(note);
+        }
+        cursor.close();
+        return lista;
+    }
+
+    @Override
     public List<Note> findAll() {
         List<Note> lista = new ArrayList<>();
 

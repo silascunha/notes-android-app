@@ -24,6 +24,6 @@
                 android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/textCardConteudo"
-                android:ellipsize="end" android:maxLines="4"/>
+                android:ellipsize="end" android:maxLines="6"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -7,4 +7,6 @@
 
     <string name="menuitem_salvar">Salvar</string>
     <string name="menuitem_search">Pesquisar</string>
+    <string name="note_title">Título</string>
+    <string name="note_body">Nota</string>
 </resources>

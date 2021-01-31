@@ -20,8 +20,9 @@
                     android:inputType="textMultiLine"
                     android:gravity="start|top"
                     android:ems="10"
-                    android:id="@+id/editTitulo" android:hint="Título" android:textSize="22sp"
-                    style="@style/Base.Widget.MaterialComponents.TextInputEditText" android:maxLength="200"/>
+                    android:id="@+id/editTitulo" android:textSize="22sp"
+                    style="@style/Base.Widget.MaterialComponents.TextInputEditText" android:maxLength="200"
+                    android:hint="@string/note_title"/>
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -30,7 +31,7 @@
                     android:ems="10"
                     android:id="@+id/editConteudo"
                     style="@style/Base.Widget.MaterialComponents.TextInputEditText" android:singleLine="false"
-                    android:hint="Nota" android:textSize="18sp"
+                    android:hint="@string/note_body" android:textSize="18sp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             />
         </LinearLayout>

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), NoteActivity.class);
-                intent.putExtra("isEditing", false);
+                //intent.putExtra("isEditing", false);
                 startActivity(intent);
             }
         });
@@ -56,14 +56,14 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
     @Override
     protected void onStart() {
         super.onStart();
-        atualizarLista();
+        atualizarLista(noteDAO.findAll());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        initializeSearchView(menu);
+        inicializarSearchView(menu);
         return true;
     }
 
@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
         return super.onOptionsItemSelected(item);
     }
 
-    private void atualizarLista() {
-        listaNotas = noteDAO.findAll();
+    private void atualizarLista(List<Note> lista) {
+        listaNotas = lista;
 
         MyAdapter adapter = new MyAdapter(listaNotas, this);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL);
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
         recyclerView.setAdapter(adapter);
     }
 
-    private void initializeSearchView(Menu menu) {
+    private void inicializarSearchView(Menu menu) {
         MenuItem menuItem = menu.findItem(R.id.menuitem_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
         String hint = (String) this.getText(R.string.menuitem_search);
@@ -101,11 +101,13 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                atualizarLista(noteDAO.filter(newText));
                 return false;
             }
         });

@@ -10,6 +10,7 @@ public interface INoteDAO {
     boolean update(Note note);
     boolean delete(Note note);
     Note findById(Long id);
+    List<Note> filter(String regex);
     List<Note> findAll();
 
 }
