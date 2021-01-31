@@ -1,5 +1,6 @@
 package com.coldy.noteapp.activity;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -29,6 +30,14 @@ public class NoteActivity extends AppCompatActivity {
 
         editTitulo = findViewById(R.id.editTitulo);
         editConteudo = findViewById(R.id.editConteudo);
+
+        isEditing = getIntent().getBooleanExtra("isEditing", false);
+
+        if (isEditing) {
+            note = (Note) getIntent().getSerializableExtra("note");
+            editTitulo.setText(note.getTitulo());
+            editConteudo.setText(note.getConteudo());
+        }
     }
 
     @Override
@@ -43,30 +52,14 @@ public class NoteActivity extends AppCompatActivity {
         int menuId = item.getItemId();
 
         if (menuId == R.id.menuitem_salvar) {
-            INoteDAO noteDAO = new NoteDAO(getApplicationContext());
-
-            boolean isAllEmpty = isEmpty(editTitulo) && isEmpty(editConteudo);
-
-            if (isAllEmpty) {
-                Toast.makeText(getApplicationContext(),
-                        "Não é possível salvar pois nada foi preenchido.", Toast.LENGTH_SHORT).show();
-
-                return true;
-            }
-
-            Note note = new Note();
-            note.setTitulo(editTitulo.getText().toString());
-            note.setConteudo(editConteudo.getText().toString());
-
-            noteDAO.save(note);
-
-            Toast.makeText(this, "Nota salva com sucesso!", Toast.LENGTH_SHORT).show();
+            saveNote();
             this.finish();
             return true;
         }
         if (menuId == android.R.id.home) {
+            String msg = (isEditing) ? "Alterações descartadas" : "Nota descartada";
             Toast.makeText(getApplicationContext(),
-                    "Nota descartada.", Toast.LENGTH_SHORT).show();
+                    msg, Toast.LENGTH_SHORT).show();
             this.finish();
             return true;
         }
@@ -80,4 +73,32 @@ public class NoteActivity extends AppCompatActivity {
         return text.length() == 0 || text.matches("");
     }
 
+    private void saveNote() {
+        INoteDAO noteDAO = new NoteDAO(getApplicationContext());
+
+        boolean isAllEmpty = isEmpty(editTitulo) && isEmpty(editConteudo);
+
+        if (isAllEmpty) {
+            Toast.makeText(getApplicationContext(),
+                    "Não é possível salvar pois nada foi preenchido.", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+        if (isEditing) {
+            note.setTitulo(editTitulo.getText().toString());
+            note.setConteudo(editConteudo.getText().toString());
+            noteDAO.update(note);
+
+            Toast.makeText(this, "Nota atualizada!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        note = new Note();
+        note.setTitulo(editTitulo.getText().toString());
+        note.setConteudo(editConteudo.getText().toString());
+
+        noteDAO.save(note);
+
+        Toast.makeText(this, "Nota salva com sucesso!", Toast.LENGTH_SHORT).show();
+    }
 }

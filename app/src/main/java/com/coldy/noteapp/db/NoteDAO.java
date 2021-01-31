@@ -46,6 +46,22 @@ public class NoteDAO implements INoteDAO {
 
     @Override
     public boolean update(Note note) {
+        ContentValues cv = new ContentValues();
+        cv.put("titulo", note.getTitulo());
+        cv.put("conteudo", note.getConteudo());
+
+        try {
+            int rowsAffected = dbWrite.update(
+                    DbHelper.TABLE_NAME, cv, "id = ?",
+                    new String[]{note.getId().toString()}
+                );
+
+            Log.i("INFO", "Linhas atualizadas: " + rowsAffected);
+
+        } catch (SQLiteException e) {
+            Log.e("INFO", "Erro ao atualizar a nota: " + e.getMessage());
+            return false;
+        }
         return true;
     }
 
