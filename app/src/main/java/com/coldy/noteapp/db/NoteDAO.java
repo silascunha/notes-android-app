@@ -67,6 +67,15 @@ public class NoteDAO implements INoteDAO {
 
     @Override
     public boolean delete(Note note) {
+
+        try {
+            dbWrite.delete(DbHelper.TABLE_NAME, "id = ?", new String[]{note.getId().toString()});
+            Log.i("INFO", "Linhas excluida");
+
+        } catch (SQLiteException e) {
+            Log.e("INFO", "Erro ao excluir: " + e.getMessage());
+            return false;
+        }
         return true;
     }
 

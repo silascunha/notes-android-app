@@ -9,4 +9,7 @@
     <string name="menuitem_search">Pesquisar</string>
     <string name="note_title">Título</string>
     <string name="note_body">Nota</string>
+
+    <string name="option_yes">Sim</string>
+    <string name="option_no">Não</string>
 </resources>

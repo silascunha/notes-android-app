@@ -53,7 +53,6 @@ public class NoteActivity extends AppCompatActivity {
 
         if (menuId == R.id.menuitem_salvar) {
             saveNote();
-            this.finish();
             return true;
         }
         if (menuId == android.R.id.home) {
@@ -91,6 +90,7 @@ public class NoteActivity extends AppCompatActivity {
             noteDAO.update(note);
 
             Toast.makeText(this, "Nota atualizada!", Toast.LENGTH_SHORT).show();
+            finish();
             return;
         }
         note = new Note();
@@ -100,5 +100,6 @@ public class NoteActivity extends AppCompatActivity {
         noteDAO.save(note);
 
         Toast.makeText(this, "Nota salva com sucesso!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

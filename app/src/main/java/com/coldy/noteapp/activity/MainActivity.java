@@ -1,9 +1,13 @@
 package com.coldy.noteapp.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.DialogCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.coldy.noteapp.R;
@@ -124,6 +128,29 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnCardC
 
     @Override
     public void onCardLongClick(int position) {
+        final Note note = listaNotas.get(position);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Confirmar exclusão");
+        dialog.setMessage("Deseja excluir essa anotação?");
+        dialog.setPositiveButton(R.string.option_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (noteDAO.delete(note)) {
+                    Toast.makeText(getApplicationContext(), "Nota excluída", Toast.LENGTH_SHORT)
+                            .show();
+                    atualizarLista(noteDAO.findAll());
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Erro ao excluir", Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        });
+
+        dialog.setNegativeButton(R.string.option_no, null);
+
+        dialog.create().show();
 
     }
 }
