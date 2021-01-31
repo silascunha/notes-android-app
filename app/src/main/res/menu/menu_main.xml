@@ -2,8 +2,16 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.coldy.noteapp.activity.MainActivity">
+
+    <item android:title="@string/menuitem_search"
+          android:id="@+id/menuitem_search"
+          app:actionViewClass="androidx.appcompat.widget.SearchView"
+          app:showAsAction="collapseActionView|ifRoom"
+          android:icon="@drawable/ic_search_24"
+          android:orderInCategory="200"/>
+
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"
-          android:orderInCategory="100"
+          android:orderInCategory="200"
           app:showAsAction="never"/>
 </menu>

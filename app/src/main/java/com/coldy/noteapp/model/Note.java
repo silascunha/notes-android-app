@@ -1,8 +1,9 @@
 package com.coldy.noteapp.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Note {
+public class Note implements Serializable {
 
     private Long id;
     private String titulo;
